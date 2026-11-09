@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Patel ChashmGhar</title>
+<meta name="theme-color" content="#0a0a0c">
+<meta name="color-scheme" content="dark">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' rx='14' fill='%230a0a0c'/%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='4'%3E%3Ccircle cx='21' cy='30' r='9'/%3E%3Ccircle cx='39' cy='30' r='9'/%3E%3Cpath d='M30 30h0M12 28l-4-3M48 28l4-3'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#08080a;--bg2:#0e0e12;--cd:#131318;--cd2:#1a1a21;--tx:#f4f1ea;--mu:#9a9384;
+  --bd:#26262e;--gold:#d4af37;--gold2:#f0d47a;--rose:#c9a227;--ok:#3ddc97;--bad:#ff6b6b;
+}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:var(--bg);color:var(--tx);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  display:flex;flex-direction:column;padding-top:env(safe-area-inset-top);overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,textarea,select{font:inherit;color:inherit;background:var(--cd2);border:1px solid var(--bd);border-radius:12px;padding:12px;width:100%;outline:0}
+input:focus,textarea:focus,select:focus{border-color:var(--gold)}
+.mu{color:var(--mu);font-size:13px}
+h1,h2,h3{line-height:1.25}
+
+/* ---------- animated background ---------- */
+#bgfx{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+#bgfx i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.25;animation:float 14s ease-in-out infinite}
+#bgfx i:nth-child(1){width:280px;height:280px;background:#d4af37;top:-80px;left:-60px}
+#bgfx i:nth-child(2){width:240px;height:240px;background:#8a6d1f;bottom:120px;right:-80px;animation-delay:-5s}
+#bgfx i:nth-child(3){width:200px;height:200px;background:#4a3c12;top:45%;left:35%;animation-delay:-9s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-30px) scale(1.12)}}
+
+/* ---------- splash ---------- */
+#sp{position:fixed;inset:0;z-index:99;background:#08080a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .6s,visibility .6s}
+#sp.h{opacity:0;visibility:hidden}
+#sp svg{width:96px;height:96px;animation:pop 1s cubic-bezier(.34,1.56,.64,1) both}
+#sp b{font-size:22px;letter-spacing:.5px;animation:fadeUp .7s ease .35s both}
+#sp span{font-size:13px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;animation:fadeUp .7s ease .55s both}
+@keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- layout ---------- */
+header{position:relative;z-index:2;display:flex;align-items:center;gap:10px;padding:14px 16px 6px}
+header .lg{width:38px;height:38px;flex:none}
+header .tt{flex:1;min-width:0}
+header .tt b{display:block;font-size:15.5px;letter-spacing:.3px}
+header .tt span{font-size:11.5px;color:var(--mu);letter-spacing:.4px}
+.ico{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--cd);border:1px solid var(--bd);position:relative}
+.ico svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ico .badge{position:absolute;top:-4px;right:-4px;background:var(--gold);color:#0a0a0c;font-size:11px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+
+main{position:relative;z-index:2;flex:1;overflow-y:auto;overflow-x:hidden;padding:4px 0 108px;scroll-behavior:smooth}
+.page{display:none;animation:pageIn .34s ease both}
+.page.on{display:block}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.wrap{padding:0 16px}
+
+/* ---------- hero ---------- */
+.hero{margin:8px 16px 18px;border-radius:22px;padding:22px 20px;position:relative;overflow:hidden;
+  background:linear-gradient(150deg,#171410,#0f0f13 55%,#16130c);border:1px solid #2b2413}
+.hero:before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent 0deg,rgba(212,175,55,.22) 60deg,transparent 130deg);animation:spin 9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero>*{position:relative;z-index:1}
+.hero .k{display:inline-block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.hero h2{font-size:23px;line-height:1.2;margin-bottom:6px}
+.hero p{font-size:13.5px;color:#cfc8b8;margin-bottom:16px;max-width:88%}
+.hero .acts{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--gold),#b8942a);color:#0a0a0c;border-radius:14px;padding:12px 18px;font-weight:800;font-size:14px;transition:transform .15s,box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.btn.gh{background:transparent;border:1px solid var(--bd);color:var(--tx);font-weight:600}
+.btn.wide{display:flex;width:100%}
+.btn.sm{padding:9px 14px;font-size:13px;border-radius:12px}
+
+/* ---------- section head ---------- */
+.sec{display:flex;align-items:center;justify-content:space-between;margin:22px 16px 12px}
+.sec b{font-size:16px}
+.sec .more{font-size:13px;color:var(--gold)}
+
+/* ---------- categories ---------- */
+.cats{display:flex;gap:10px;overflow-x:auto;padding:2px 16px 6px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex:none;display:flex;flex-direction:column;align-items:center;gap:7px;width:74px;padding:12px 6px;border-radius:18px;
+  background:var(--cd);border:1px solid var(--bd);transition:transform .2s,border-color .2s}
+.cat:active{transform:scale(.95)}
+.cat.on{border-color:var(--gold);background:rgba(212,175,55,.1)}
+.cat svg{width:26px;height:26px;stroke:var(--gold);fill:none;stroke-width:1.7}
+.cat span{font-size:11px;color:var(--mu);text-align:center;line-height:1.2}
+.cat.on span{color:var(--tx)}
+
+/* ---------- product grid ---------- */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px}
+.pcard{background:var(--cd);border:1px solid var(--bd);border-radius:18px;overflow:hidden;position:relative;
+  opacity:0;transform:translateY(14px);animation:cardIn .45s ease forwards}
+@keyframes cardIn{to{opacity:1;transform:none}}
+.pcard .im{height:104px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 40%,#1d1b16,#101014)}
+.pcard .im svg{width:88%;height:auto}
+.pcard .im img{width:100%;height:100%;object-fit:cover}
+.hero2 img{width:100%;height:100%;object-fit:cover;border-radius:20px}
+.pcard .bd{padding:10px 12px 12px}
+.pcard h3{font-size:13.5px;font-weight:700;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcard .p{font-size:14px;color:var(--gold2);font-weight:800;margin-top:4px}
+.pcard .tag{position:absolute;top:8px;left:8px;background:var(--gold);color:#0a0a0c;font-size:10px;font-weight:800;padding:3px 8px;border-radius:8px;letter-spacing:.4px}
+.fav{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:50%;background:#00000080;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.fav svg{width:16px;height:16px;stroke:var(--tx);fill:none;stroke-width:2}
+.fav.on svg{fill:var(--bad);stroke:var(--bad)}
+.pcard.out{opacity:.72}
+.pcard.out .im{filter:grayscale(.55)}
+
+/* ---------- lists / cards ---------- */
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:14px;margin:0 16px 12px}
+.row{display:flex;align-items:center;gap:10px}
+.row.s{justify-content:space-between}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--cd2);border:1px solid var(--bd);border-radius:999px;padding:6px 12px;font-size:12.5px;color:var(--mu)}
+.stat{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 16px;margin-bottom:6px}
+.stat div{background:var(--cd);border:1px solid var(--bd);border-radius:16px;padding:12px 8px;text-align:center}
+.stat b{display:block;font-size:18px;color:var(--gold2)}
+.stat span{font-size:11px;color:var(--mu)}
+
+/* ---------- cart ---------- */
+.ci{display:flex;gap:12px;align-items:center;background:var(--cd);border:1px solid var(--bd);border-radius:16px;padding:10px;margin:0 16px 10px}
+.ci .th{width:56px;height:56px;border-radius:12px;background:#101014;display:flex;align-items:center;justify-content:center;flex:none}
+.ci .th svg{width:46px;height:auto}
+.ci .inf{flex:1;min-width:0}
+.ci .inf b{font-size:13.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qty{display:flex;align-items:center;gap:10px;background:var(--cd2);border-radius:10px;padding:4px 8px}
+.qty button{width:24px;height:24px;font-size:16px;line-height:1;color:var(--gold)}
+.qty span{min-width:16px;text-align:center;font-size:13px}
+
+/* ---------- bottom nav ---------- */
+nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;background:#0b0b0ef2;backdrop-filter:blur(14px);
+  border-top:1px solid var(--bd);padding:8px 6px calc(8px + env(safe-area-inset-bottom))}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;color:var(--mu);padding:6px 0;border-radius:12px;transition:color .2s}
+nav button.on{color:var(--gold)}
+nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+nav button.on svg{transform:translateY(-2px) scale(1.06)}
+
+/* ---------- sheet / modal ---------- */
+.sheet{position:fixed;inset:0;z-index:60;display:none}
+.sheet.on{display:block}
+.sheet .sc{position:absolute;inset:0;background:#000b;animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.sheet .in{position:absolute;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;background:#111116;border:1px solid var(--bd);
+  border-bottom:0;border-radius:26px 26px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom));max-height:90vh;overflow:auto;
+  animation:up .26s cubic-bezier(.2,.9,.3,1)}
+@keyframes up{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
+.sheet h3{font-size:17px;margin-bottom:12px}
+.sheet label{display:block;font-size:12.5px;color:var(--mu);margin:12px 0 6px}
+.grab{width:44px;height:4px;border-radius:2px;background:#33333c;margin:0 auto 12px}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(10px);bottom:104px;background:#1d1a12;border:1px solid #3a3220;
+  color:var(--tx);padding:11px 16px;border-radius:12px;font-size:13.5px;z-index:80;opacity:0;pointer-events:none;transition:.25s;max-width:90%;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%)}
+
+.empty{text-align:center;padding:46px 24px;color:var(--mu)}
+.empty b{display:block;color:var(--tx);font-size:16px;margin-bottom:6px}
+.hero2{height:180px;margin:0 16px 14px;border-radius:20px;background:radial-gradient(circle at 50% 45%,#1e1b13,#0d0d11);display:flex;align-items:center;justify-content:center;border:1px solid var(--bd)}
+.hero2 svg{width:72%;height:auto;filter:drop-shadow(0 8px 24px rgba(212,175,55,.25))}
+.price{font-size:24px;font-weight:800;color:var(--gold2)}
+.strike{color:var(--mu);text-decoration:line-through;font-size:14px;margin-left:8px}
+.specs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.badge2{background:var(--cd2);border:1px solid var(--bd);border-radius:10px;padding:6px 10px;font-size:12px;color:var(--mu)}
+</style></head>
+<body>
+
+<div id="bgfx"><i></i><i></i><i></i></div>
+
+<div id="sp">
+  <svg viewBox="0 0 60 60" fill="none" stroke="#d4af37" stroke-width="3.2" stroke-linecap="round">
+    <circle cx="21" cy="30" r="9"/><circle cx="39" cy="30" r="9"/>
+    <path d="M30 30h0M12 28l-4-3M48 28l4-3M16 20c3-2 7-2 10 0M34 20c3-2 7-2 10 0"/>
+  </svg>
+  <b id="spName">Patel ChashmGhar</b>
+  <span>Optical Store</span>
+</div>
+
+<header>
+  <div class="lg" id="lgWrap"></div>
+  <div class="tt"><b id="hName">Patel ChashmGhar</b><span id="hTag">Aapki nazar, hamari zimmedari</span></div>
+  <button class="ico" onclick="openSettings()" aria-label="Settings">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+  </button>
+  <button class="ico" onclick="go('cart')" aria-label="Cart">
+    <svg viewBox="0 0 24 24"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6L5 3H2"/></svg>
+    <span class="badge" id="cartBadge" style="display:none">0</span>
+  </button>
+</header>
+
+<main id="main">
+
+  <!-- HOME -->
+  <section class="page on" id="p-home">
+    <div class="hero">
+      <span class="k">New Collection 2026</span>
+      <h2 id="heroTitle">Naye frames,<br>naya nazariya</h2>
+      <p id="heroSub">Premium frames, branded lenses aur expert fitting — sab ek jagah.</p>
+      <div class="acts">
+        <button class="btn" onclick="go('shop')">Shop karo</button>
+        <button class="btn gh" onclick="waShop()">WhatsApp karo</button>
+      </div>
+    </div>
+
+    <div class="cats" id="cats"></div>
+
+    <div class="sec"><b>Best sellers</b><span class="more" onclick="go('shop')">Sab dekho ›</span></div>
+    <div class="grid" id="bestGrid"></div>
+
+    <div class="sec"><b>Hum kyun?</b></div>
+    <div class="card"><div class="row"><span class="pill">✓</span><div><b style="font-size:14px">Eye test sirf ₹100</b><div class="mu">Computerised + manual test</div></div></div></div>
+    <div class="card"><div class="row"><span class="pill">✓</span><div><b style="font-size:14px">1 saal warranty</b><div class="mu">Frame aur lens dono par</div></div></div></div>
+    <div class="card"><div class="row"><span class="pill">✓</span><div><b style="font-size:14px">Same-day fitting</b><div class="mu">Power lens 30 minute mein ready</div></div></div></div>
+
+    <div class="sec"><b>Store</b></div>
+    <div class="card">
+      <div class="row s"><div><b id="addrLine" style="font-size:14px">Patel ChashmGhar</b><div class="mu" id="addrSub">Address settings mein daalo</div></div></div>
+      <div class="row" style="gap:8px;margin-top:12px">
+        <button class="btn gh sm" onclick="callShop()">Call</button>
+        <button class="btn gh sm" onclick="waShop()">WhatsApp</button>
+        <button class="btn gh sm" onclick="mapShop()">Map</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section class="page" id="p-shop">
+    <div class="wrap" style="margin:6px 0 10px">
+      <input id="q" placeholder="Search frames, lenses..." oninput="renderShop()">
+    </div>
+    <div class="cats" id="cats2"></div>
+    <div class="grid" id="shopGrid" style="margin-top:14px"></div>
+  </section>
+
+  <!-- PRODUCT -->
+  <section class="page" id="p-prod"><div id="prodBody"></div></section>
+
+  <!-- CART -->
+  <section class="page" id="p-cart"><div id="cartBody"></div></section>
+<!-- INFO -->
+  <section class="page" id="p-info"><div id="infoBody"></div></section>
+
+</main>
+
+<nav>
+  <button class="on" data-tab="home" onclick="go('home')"><svg viewBox="0 0 24 24"><path d="M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Home</button>
+  <button data-tab="shop" onclick="go('shop')"><svg viewBox="0 0 24 24"><circle cx="9" cy="13" r="5"/><circle cx="17" cy="13" r="4"/><path d="M14 13h0"/></svg>Shop</button>
+  <button data-tab="cart" onclick="go('cart')"><svg viewBox="0 0 24 24"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>Cart</button>
+  <button data-tab="info" onclick="go('info')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 8h0"/></svg>Store</button>
+</nav>
+
+<div class="sheet" id="sh"><div class="sc" onclick="closeSheet()"></div><div class="in" id="shin"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   Patel ChashmGhar — store app
+   Sab kuch phone mein save hota hai (localStorage).
+   Shop details aur products "Settings" (gear icon) se badal sakte ho.
+   ========================================================= */
+
+const DEFAULT_SHOP = {
+  name:'Patel Chashma Ghar',
+  tagline:'Aapki nazar, hamari zimmedari',
+  phone:'7383808222',
+  whatsapp:'917383808222',
+  address:'Chanakyapuri',
+  timings:'Mon–Sun · 10:00 AM – 9:00 PM',
+  mapQuery:'Patel Chashma Ghar Chanakyapuri'
+};
+
+const DEFAULT_PRODUCTS = [
+  {id:'p1', name:'Aero Round Metal', cat:'frames', price:1499, mrp:2199, style:'round', color:'#d4af37', tag:'Best seller', desc:'Halka titanium frame, poore din aaram. Unisex.', stock:6},
+  {id:'p2', name:'Classic Square', cat:'frames', price:999, mrp:1499, style:'square', color:'#2b2b2b', tag:'', desc:'TR90 matte black frame — office aur daily use ke liye.', stock:6},
+  {id:'p3', name:'Aviator Gold', cat:'sunglasses', price:1899, mrp:2599, style:'aviator', color:'#d4af37', tag:'New', desc:'UV400 lens, gold metal frame. Classic aviator look.', stock:6},
+  {id:'p4', name:'Cat Eye Noir', cat:'sunglasses', price:1299, mrp:1799, style:'cateye', color:'#8b1e3f', tag:'', desc:'Stylish cat-eye shape, polarized lens.', stock:6},
+  {id:'p5', name:'Blue Cut Lens', cat:'lenses', price:799, mrp:1299, style:'lens', color:'#3aa0ff', tag:'', desc:'Screen se aane wali blue light block karta hai. Anti-glare.', stock:6},
+  {id:'p6', name:'Progressive Lens', cat:'lenses', price:2499, mrp:3499, style:'lens', color:'#9a7bff', tag:'Premium', desc:'Door aur paas dono — ek hi chashme mein.', stock:6},
+  {id:'p7', name:'Daily Contact Lens', cat:'contact', price:599, mrp:799, style:'contact', color:'#3ddc97', tag:'', desc:'Ek din ke disposable lens, 10 pieces. Comfortable.', stock:6},
+  {id:'p8', name:'Kids Frame Flex', cat:'frames', price:749, mrp:999, style:'square', color:'#1f6feb', tag:'', desc:'Bachchon ke liye flexible frame — mudta hai, tootta nahi.', stock:6}
+];
+
+let shop = Object.assign({}, DEFAULT_SHOP, read('pc_shop') || {});
+let products = read('pc_prod') || DEFAULT_PRODUCTS.slice();
+let cart = read('pc_cart') || {};
+let favs = read('pc_fav') || [];
+let cat = 'all';
+let curProd = null;
+
+function read(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}catch(e){return null}}
+function write(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function $(id){return document.getElementById(id)}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function money(n){return '₹'+(n||0).toLocaleString('en-IN')}
+function toast(m){const e=$('toast');e.textContent=m;e.classList.add('on');clearTimeout(window._tt);window._tt=setTimeout(()=>e.classList.remove('on'),2200)}
+
+/* ---------- glasses illustrations ---------- */
+function glassesSVG(style,color,w){
+  const c=color||'#d4af37';
+  const stroke='stroke="'+c+'" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"';
+  const lens=(x,y,rx,ry,shape)=>{
+    if(shape==='square')return '<rect x="'+(x-rx)+'" y="'+(y-ry)+'" width="'+(rx*2)+'" height="'+(ry*2)+'" rx="6" fill="'+c+'" fill-opacity=".13" '+stroke+'/>';
+    if(shape==='cateye')return '<path d="M'+(x-rx)+' '+(y-ry+4)+'q'+rx+' -8 '+rx*2+' 0q0 '+ry*1.6+' -'+rx+' '+ry*1.5+'q-'+rx+' 0 -'+rx+' -'+ry*1.5+'z" fill="'+c+'" fill-opacity=".13" '+stroke+'/>';
+    if(shape==='aviator')return '<path d="M'+(x-rx)+' '+(y-ry)+'h'+(rx*2)+'q0 '+(ry*2)+' -'+rx+' '+(ry*2)+'q-'+rx+' 0 -'+rx+' -'+(ry*2)+'z" fill="'+c+'" fill-opacity=".13" '+stroke+'/>';
+    return '<circle cx="'+x+'" cy="'+y+'" r="'+rx+'" fill="'+c+'" fill-opacity=".13" '+stroke+'/>';
+  };
+  if(style==='contact')return '<svg viewBox="0 0 120 60"><circle cx="60" cy="30" r="20" fill="'+c+'" fill-opacity=".22" '+stroke+'/><circle cx="60" cy="30" r="10" fill="none" stroke="'+c+'" stroke-opacity=".5" stroke-width="1.4"/><circle cx="60" cy="30" r="3.4" fill="'+c+'"/></svg>';
+  if(style==='lens')return '<svg viewBox="0 0 120 60"><rect x="30" y="8" width="60" height="44" rx="16" fill="'+c+'" fill-opacity=".18" '+stroke+'/><path d="M42 18l30 24" stroke="'+c+'" stroke-opacity=".55" stroke-width="2"/><path d="M46 14l26 20" stroke="#fff" stroke-opacity=".18" stroke-width="6" stroke-linecap="round"/></svg>';
+  const sh = style==='square'?'square':style==='cateye'?'cateye':style==='aviator'?'aviator':'round';
+  return '<svg viewBox="0 0 120 60">'
+    + lens(38,30,sh==='square'?16:15,sh==='square'?12:13,sh)
+    + lens(82,30,sh==='square'?16:15,sh==='square'?12:13,sh)
+    + '<path d="M53 30h14" '+stroke+'/>'
+    + '<path d="M23 26l-9-5M97 26l9-5" '+stroke+'/>'
+    + '</svg>';
+}
+
+/* ---------- navigation ---------- */
+function go(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));
+  const el=$('p-'+p); if(el)el.classList.add('on');
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===p));
+  $('main').scrollTop=0;
+  if(p==='shop')renderShop();
+  if(p==='cart')renderCart();
+  if(p==='info')renderInfo();
+  if(p==='home')renderHome();
+  window._page=p;
+}
+
+/* ---------- categories ---------- */
+const CATS=[
+ ['all','All','<path d="M4 7h16M4 12h16M4 17h16"/>'],
+ ['frames','Frames','<circle cx="8" cy="13" r="4"/><circle cx="16" cy="13" r="4"/><path d="M12 13h0M4 11l-2-2M20 11l2-2"/>'],
+ ['sunglasses','Sunglasses','<circle cx="8" cy="13" r="4" fill="currentColor" stroke="none"/><circle cx="16" cy="13" r="4" fill="currentColor" stroke="none"/><path d="M12 12v1.5M4 10L2 8M20 10l2-2"/>'],
+ ['lenses','Lenses','<rect x="6" y="5" width="12" height="14" rx="5"/><path d="M9 8l6 8"/>'],
+ ['contact','Contact','<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/>']
+];
+function catHTML(id){
+  return CATS.map(c=>'<button class="cat '+(cat===c[0]?'on':'')+'" onclick="setCat(\''+c[0]+'\')">'
+    +'<svg viewBox="0 0 24 24">'+c[2]+'</svg><span>'+c[1]+'</span></button>').join('');
+}
+function setCat(c){cat=c;renderHome();renderShop();}
+
+/* ---------- home ---------- */
+function renderHome(){
+  $('cats').innerHTML=catHTML('a');
+  const best=products.slice(0,4);
+  $('bestGrid').innerHTML=best.map((p,i)=>pcard(p,i)).join('');
+  $('addrLine').textContent=shop.name;
+  $('addrSub').textContent=shop.address||shop.timings;
+  $('hName').textContent=shop.name;
+  $('hTag').textContent=shop.tagline||'Optical Store';
+  $('lgWrap').innerHTML='<svg viewBox="0 0 60 60" width="38" height="38" fill="none" stroke="#d4af37" stroke-width="3.2" stroke-linecap="round"><circle cx="21" cy="30" r="9"/><circle cx="39" cy="30" r="9"/><path d="M30 30h0M12 28l-4-3M48 28l4-3"/></svg>';
+  updateBadge();
+}
+
+function pcard(p,i){
+  const fav=favs.includes(p.id), out=(p.stock||0)<=0;
+  return '<div class="pcard'+(out?' out':'')+'" style="animation-delay:'+(i*60)+'ms" onclick="openProd(\''+p.id+'\')">'
+    +(out?'<span class="tag" style="background:#ff6b6b;color:#1a0b0b">Out of stock</span>':(p.tag?'<span class="tag">'+esc(p.tag)+'</span>':''))
+    +'<button class="fav '+(fav?'on':'')+'" onclick="event.stopPropagation();toggleFav(\''+p.id+'\')"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9z"/></svg></button>'
+    +'<div class="im">'+(p.img?'<img src="'+p.img+'" alt="">':glassesSVG(p.style,p.color))+'</div>'
+    +'<div class="bd"><h3>'+esc(p.name)+'</h3><div class="mu" style="font-size:11.5px">'+catName(p.cat)
+    +(out?' · Out of stock':' · '+(p.stock||0)+' left')+'</div>'
+    +'<div class="p">'+money(p.price)+'</div></div></div>';
+}
+function catName(c){const m={frames:'Frame',sunglasses:'Sunglasses',lenses:'Lens',contact:'Contact lens'};return m[c]||'Eyewear'}
+
+/* ---------- shop ---------- */
+function renderShop(){
+  $('cats2').innerHTML=catHTML('b');
+  const q=(($('q')||{}).value||'').toLowerCase();
+  let list=products.filter(p=>cat==='all'||p.cat===cat);
+  if(q)list=list.filter(p=>(p.name+' '+p.desc).toLowerCase().includes(q));
+  $('shopGrid').innerHTML=list.length?list.map((p,i)=>pcard(p,i)).join('')
+    :'<div class="empty" style="grid-column:1/-1"><b>Kuch nahi mila</b>Doosra search ya category try karo.</div>';
+}
+
+/* ---------- product page ---------- */
+function openProd(id){
+  const p=products.find(x=>x.id===id); if(!p)return;
+  curProd=p;
+  const fav=favs.includes(p.id);
+  $('prodBody').innerHTML=
+   '<div class="hero2">'+(p.img?'<img src="'+p.img+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:20px">':glassesSVG(p.style,p.color))+'</div>'
+   +'<div class="wrap">'
+   +'<div class="row s"><div><h2 style="font-size:19px">'+esc(p.name)+'</h2><div class="mu">'+catName(p.cat)+'</div></div>'
+   +'<button class="ico" onclick="toggleFav(\''+p.id+'\');openProd(\''+p.id+'\')"><svg viewBox="0 0 24 24" style="fill:'+(fav?'#ff6b6b':'none')+';stroke:'+(fav?'#ff6b6b':'currentColor')+'"><path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9z"/></svg></button></div>'
+   +'<div class="price" style="margin-top:10px">'+money(p.price)+(p.mrp?'<span class="strike">'+money(p.mrp)+'</span>':'')+'</div>'
+   +'<div class="specs"><span class="badge2">1 saal warranty</span><span class="badge2">Free fitting</span><span class="badge2">Original product</span>'
+   +'<span class="badge2" style="color:'+((p.stock||0)>0?'var(--ok)':'#ff6b6b')+'">'+((p.stock||0)>0?(p.stock+' in stock'):'Out of stock')+'</span></div>'
+   +'<p class="mu" style="margin:6px 0 18px">'+esc(p.desc)+'</p>'
+   +((p.stock||0)>0
+      ?'<button class="btn wide" onclick="addCart(\''+p.id+'\')">Cart mein daalo</button>'
+      :'<button class="btn wide" style="background:#2a1a1a;color:#ff9a9e" onclick="notifyMe(\''+p.id+'\')">Out of stock — poochho</button>')
+   +'<button class="btn gh wide" style="margin-top:10px" onclick="waProduct(\''+p.id+'\')">WhatsApp par poochho</button>'
+   +'<button class="btn gh wide" style="margin-top:10px" onclick="go(\'shop\')">← Aur products dekho</button>'
+   +'</div>';
+  go('prod');
+}
+
+/* ---------- cart ---------- */
+function addCart(id){
+  const p=products.find(x=>x.id===id);
+  if(!p)return;
+  const have=p.stock||0, inCart=cart[id]||0;
+  if(have<=0)return toast('Yeh product out of stock hai');
+  if(inCart>=have)return toast('Sirf '+have+' piece stock mein hai');
+  cart[id]=inCart+1; write('pc_cart',cart); updateBadge(); toast('Cart mein add ho gaya');
+}
+function notifyMe(id){
+  const p=products.find(x=>x.id===id); if(!p)return;
+  openWA('Namaste '+shop.name+' 🙏%0AMujhe yeh product chahiye tha par out of stock dikh raha hai:%0A• '+encodeURIComponent(p.name)+'%0AAvailable hone par bata dijiye.');
+}
+function updateBadge(){
+  const n=Object.values(cart).reduce((a,b)=>a+b,0);
+  const b=$('cartBadge'); if(!b)return;
+  b.textContent=n; b.style.display=n?'flex':'none';
+}
+function renderCart(){
+  const ids=Object.keys(cart);
+  if(!ids.length){
+    $('cartBody').innerHTML='<div class="empty"><b>Cart khaali hai</b>Shop se apna pasandida frame chuno.</div>'
+      +'<div class="wrap"><button class="btn wide" onclick="go(\'shop\')">Shop dekho</button></div>';
+    return;
+  }
+  let total=0;
+  let h='';
+  ids.forEach(id=>{
+    const p=products.find(x=>x.id===id); if(!p)return;
+    const q=cart[id]; total+=p.price*q;
+    h+='<div class="ci"><div class="th">'+glassesSVG(p.style,p.color)+'</div>'
+      +'<div class="inf"><b>'+esc(p.name)+'</b><div class="mu">'+money(p.price)+'</div></div>'
+      +'<div class="qty"><button onclick="qty(\''+id+'\',-1)">−</button><span>'+q+'</span><button onclick="qty(\''+id+'\',1)">+</button></div></div>';
+  });
+  h+='<div class="card" style="margin-top:14px"><div class="row s"><span class="mu">Total</span><b style="font-size:19px;color:var(--gold2)">'+money(total)+'</b></div></div>'
+   +'<div class="wrap"><button class="btn wide" onclick="waOrder()">WhatsApp par order karo</button>'
+   +'<button class="btn gh wide" style="margin-top:10px" onclick="clearCart()">Cart khaali karo</button></div>';
+  $('cartBody').innerHTML=h;
+}
+function qty(id,d){
+  cart[id]=(cart[id]||0)+d;
+  if(cart[id]<=0)delete cart[id];
+  write('pc_cart',cart); updateBadge(); renderCart();
+}
+function clearCart(){cart={};write('pc_cart',cart);updateBadge();renderCart();toast('Cart khaali ho gaya')}
+function waOrder(){
+  const ids=Object.keys(cart); if(!ids.length)return;
+  let total=0,lines=[];
+  ids.forEach(id=>{const p=products.find(x=>x.id===id);if(!p)return;const q=cart[id];total+=p.price*q;lines.push('• '+p.name+' x'+q+' — '+money(p.price*q))});
+  const msg='Namaste '+shop.name+' 🙏%0A%0AMujhe yeh order karna hai:%0A'+encodeURIComponent(lines.join('\n')).replace(/%250A/g,'%0A')
+    +'%0A%0ATotal: '+encodeURIComponent(money(total))+'%0A%0AKya yeh available hai?';
+  openWA(msg);
+}
+function waProduct(id){
+  const p=products.find(x=>x.id===id); if(!p)return;
+  openWA('Namaste '+shop.name+' 🙏%0AMujhe yeh product chahiye:%0A• '+encodeURIComponent(p.name)+' — '+encodeURIComponent(money(p.price)));
+}
+function waShop(){openWA('Namaste '+shop.name+' 🙏')}
+function openWA(msg){
+  const num=(shop.whatsapp||shop.phone||'').replace(/[^0-9]/g,'');
+  if(!num)return toast('Settings mein WhatsApp number daalo');
+  window.open('https://wa.me/'+num+'?text='+msg,'_blank');
+}
+function callShop(){
+  const num=(shop.phone||'').replace(/[^0-9+]/g,'');
+  if(!num)return toast('Settings mein phone number daalo');
+  location.href='tel:'+num;
+}
+function mapShop(){
+  const q=shop.mapQuery||shop.address||shop.name;
+  window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q),'_blank');
+}
+
+/* ---------- info ---------- */
+function renderInfo(){
+  $('infoBody').innerHTML=
+   '<div class="wrap" style="margin-top:8px">'
+   +'<div class="card" style="margin:0 0 12px"><h3 style="font-size:17px">'+esc(shop.name)+'</h3>'
+   +'<div class="mu" style="margin-top:4px">'+esc(shop.tagline||'')+'</div>'
+   +'<div style="margin-top:14px" class="mu">📍 '+esc(shop.address||'Address settings mein daalo')+'</div>'
+   +'<div class="mu" style="margin-top:6px">🕒 '+esc(shop.timings||'')+'</div>'
+   +'<div class="mu" style="margin-top:6px">📞 '+esc(shop.phone||'Phone settings mein daalo')+'</div>'
+   +'<div class="row" style="gap:8px;margin-top:14px;flex-wrap:wrap">'
+   +'<button class="btn sm" onclick="callShop()">Call</button>'
+   +'<button class="btn gh sm" onclick="waShop()">WhatsApp</button>'
+   +'<button class="btn gh sm" onclick="mapShop()">Map</button></div></div>'
+   +'<div class="card" style="margin:0 0 12px"><b style="font-size:14px">Services</b>'
+
+   +'<div class="mu">• Power glasses — 30 min fitting</div>'
+   +'<div class="mu">• Sunglasses aur branded frames</div>'
+   +'<div class="mu">• Contact lenses</div>'
+   +'<div class="mu">• Frame repair aur lens change</div></div>'
+   +'<div class="card" style="margin:0"><b style="font-size:14px">Wishlist</b>'
+   +(favs.length?'<div class="mu" style="margin-top:6px">'+favs.length+' product save kiye hain</div>':'<div class="mu" style="margin-top:6px">Koi product save nahi kiya</div>')
+   +'</div></div>';
+}
+
+/* ---------- favourites ---------- */
+function toggleFav(id){
+  const i=favs.indexOf(id);
+  if(i>=0)favs.splice(i,1); else favs.push(id);
+  write('pc_fav',favs);
+  if(window._page==='home')renderHome(); if(window._page==='shop')renderShop();
+  toast(i>=0?'Wishlist se hata diya':'Wishlist mein save kiya');
+}
+
+/* ---------- settings (owner) ---------- */
+function openSettings(){
+  openSheet('<div class="grab"></div><h3>Store settings</h3>'
+   +'<label>Store name</label><input id="stName" value="'+esc(shop.name)+'">'
+   +'<label>Tagline</label><input id="stTag" value="'+esc(shop.tagline||'')+'">'
+   +'<label>Phone (call ke liye)</label><input id="stPhone" value="'+esc(shop.phone||'')+'" placeholder="+91 98765 43210">'
+   +'<label>WhatsApp number (country code ke saath)</label><input id="stWa" value="'+esc(shop.whatsapp||'')+'" placeholder="919876543210">'
+   +'<label>Address</label><textarea id="stAddr" rows="2">'+esc(shop.address||'')+'</textarea>'
+   +'<label>Timings</label><input id="stTime" value="'+esc(shop.timings||'')+'">'
+   +'<button class="btn wide" style="margin-top:16px" onclick="saveSettings()">Save</button>'
+   +'<button class="btn gh wide" style="margin-top:10px" onclick="openProductAdmin()">Products manage karo ('+products.length+')</button>'
+   +'<button class="btn gh wide" style="margin-top:10px" onclick="closeSheet()">Close</button>');
+}
+function saveSettings(){
+  shop.name=($('stName').value||'').trim()||'My Store';
+  shop.tagline=($('stTag').value||'').trim();
+  shop.phone=($('stPhone').value||'').trim();
+  shop.whatsapp=($('stWa').value||'').trim();
+  shop.address=($('stAddr').value||'').trim();
+  shop.timings=($('stTime').value||'').trim();
+  write('pc_shop',shop); closeSheet(); renderHome(); toast('Settings save ho gayi');
+}
+function openProductAdmin(){
+  let h='<div class="grab"></div><h3>Products</h3>';
+  products.forEach(p=>{
+    h+='<div class="ci" style="margin:0 0 10px;flex-wrap:wrap"><div class="th">'+(p.img?'<img src="'+p.img+'" style="width:100%;height:100%;object-fit:cover;border-radius:12px">':glassesSVG(p.style,p.color))+'</div>'
+      +'<div class="inf"><b>'+esc(p.name)+'</b><div class="mu">'+money(p.price)+' · '+(p.stock||0)+' in stock</div>'
+      +'<div class="qty" style="margin-top:6px;width:max-content"><button onclick="stockAdj(\''+p.id+'\',-1)">−</button>'
+      +'<span>'+(p.stock||0)+'</span><button onclick="stockAdj(\''+p.id+'\',1)">+</button></div></div>'
+      +'<div style="display:flex;flex-direction:column;gap:6px;margin-left:auto">'
+      +'<button class="del" style="color:#d4af37;font-size:13px" onclick="editProduct(\''+p.id+'\')">Edit</button>'
+      +'<button class="del" style="color:#ff6b6b;font-size:13px" onclick="delProduct(\''+p.id+'\')">Delete</button></div></div>';
+  });
+  h+='<button class="btn wide" style="margin-top:8px" onclick="editProduct()">+ Naya product add karo</button>'
+   +'<button class="btn gh wide" style="margin-top:10px" onclick="openSettings()">← Back</button>';
+  openSheet(h);
+}
+function editProduct(id){
+  const p=id?products.find(x=>x.id===id):{name:'',cat:'frames',price:'',mrp:'',style:'round',color:'#d4af37',tag:'',desc:''};
+  const styles=['round','square','aviator','cateye','lens','contact'];
+  openSheet('<div class="grab"></div><h3>'+(id?'Product edit':'Naya product')+'</h3>'
+   +'<label>Naam</label><input id="pn" value="'+esc(p.name)+'">'
+   +'<label>Category</label><select id="pc"><option value="frames">Frame</option><option value="sunglasses">Sunglasses</option><option value="lenses">Lens</option><option value="contact">Contact lens</option></select>'
+   +'<label>Price (₹)</label><input id="pp" inputmode="numeric" value="'+esc(String(p.price||''))+'">'
+   +'<label>MRP (optional)</label><input id="pm" inputmode="numeric" value="'+esc(String(p.mrp||''))+'">'
+   +'<label>Design</label><select id="ps">'+styles.map(s=>'<option value="'+s+'"'+(p.style===s?' selected':'')+'>'+s+'</option>').join('')+'</select>'
+   +'<label>Colour</label><input id="pcol" type="color" value="'+(p.color||'#d4af37')+'" style="height:46px;padding:4px">'
+   +'<label>Tag (Best seller / New)</label><input id="pt" value="'+esc(p.tag||'')+'">'
+   +'<label>Photo (phone se chuno — optional)</label>'
+   +'<div class="row" style="gap:10px"><div id="pimgPrev" style="width:64px;height:64px;border-radius:12px;background:#101014;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;overflow:hidden">'
+   +(p.img?'<img src="'+p.img+'" style="width:100%;height:100%;object-fit:cover">':'<span class="mu" style="font-size:11px">No photo</span>')+'</div>'
+   +'<label class="btn gh sm" style="margin:0">Photo chuno<input type="file" accept="image/*" style="display:none" onchange="pickImg(this)"></label>'
+   +'<button class="btn gh sm" onclick="clearImg()">Hatao</button></div>'
+   +'<label>Stock (kitne piece hain)</label><input id="pst" inputmode="numeric" value="'+(p.stock!=null?p.stock:6)+'">'
+   +'<label>Description</label><textarea id="pd" rows="2">'+esc(p.desc||'')+'</textarea>'
+   +'<button class="btn wide" style="margin-top:16px" onclick="saveProduct('+(id?("'"+id+"'"):'null')+')">Save</button>'
+   +'<button class="btn gh wide" style="margin-top:10px" onclick="openProductAdmin()">Cancel</button>');
+  setTimeout(()=>{if(id)$('pc').value=p.cat},50);
+}
+let tmpImg=null;
+function pickImg(inp){
+  const f=inp.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    const im=new Image();
+    im.onload=()=>{
+      const max=700, sc=Math.min(1,max/Math.max(im.width,im.height));
+      const cv=document.createElement('canvas');
+      cv.width=Math.round(im.width*sc); cv.height=Math.round(im.height*sc);
+      cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);
+      tmpImg=cv.toDataURL('image/jpeg',0.82);
+      const pr=$('pimgPrev'); if(pr)pr.innerHTML='<img src="'+tmpImg+'" style="width:100%;height:100%;object-fit:cover">';
+      toast('Photo lag gayi — Save dabao');
+    };
+    im.src=r.result;
+  };
+  r.readAsDataURL(f);
+}
+function clearImg(){tmpImg='';const pr=$('pimgPrev');if(pr)pr.innerHTML='<span class="mu" style="font-size:11px">No photo</span>'}
+function saveProduct(id){
+  const o={name:($('pn').value||'').trim(),cat:$('pc').value,price:parseInt($('pp').value||'0')||0,
+    mrp:parseInt($('pm').value||'0')||0,style:$('ps').value,color:$('pcol').value,
+    tag:($('pt').value||'').trim(),desc:($('pd').value||'').trim(),
+    stock:parseInt($('pst').value||'0')||0};
+  if(tmpImg!==null)o.img=tmpImg;
+  if(!o.name)return toast('Product ka naam likho');
+  if(!o.price)return toast('Price daalo');
+  tmpImg=null;
+  if(id){const i=products.findIndex(x=>x.id===id);products[i]=Object.assign(products[i],o)}
+  else{o.id='p'+Date.now();products.push(o)}
+  write('pc_prod',products); openProductAdmin(); renderHome(); toast('Product save ho gaya');
+}
+function stockAdj(id,d){
+  const p=products.find(x=>x.id===id); if(!p)return;
+  p.stock=Math.max(0,(p.stock||0)+d);
+  write('pc_prod',products); openProductAdmin();
+  if(window._page==='home')renderHome(); if(window._page==='shop')renderShop();
+}
+function delProduct(id){
+  products=products.filter(x=>x.id!==id); write('pc_prod',products); openProductAdmin(); renderHome();
+}
+
+/* ---------- sheet ---------- */
+function openSheet(html){$('shin').innerHTML=html;$('sh').classList.add('on')}
+function closeSheet(){$('sh').classList.remove('on')}
+
+/* ---------- boot ---------- */
+setTimeout(()=>$('sp').classList.add('h'),1600);
+renderHome();
+window._page='home';
+</script>
+</body></html>
