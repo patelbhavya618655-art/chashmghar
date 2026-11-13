@@ -233,6 +233,7 @@ nav button.on svg{transform:translateY(-2px) scale(1.06)}
   <section class="page" id="p-cart"><div id="cartBody"></div></section>
 <!-- INFO -->
   <section class="page" id="p-info"><div id="infoBody"></div></section>
+  <section class="page" id="p-manage"><div id="manageBody"></div></section>
 
 </main>
 
@@ -241,6 +242,7 @@ nav button.on svg{transform:translateY(-2px) scale(1.06)}
   <button data-tab="shop" onclick="go('shop')"><svg viewBox="0 0 24 24"><circle cx="9" cy="13" r="5"/><circle cx="17" cy="13" r="4"/><path d="M14 13h0"/></svg>Shop</button>
   <button data-tab="cart" onclick="go('cart')"><svg viewBox="0 0 24 24"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>Cart</button>
   <button data-tab="info" onclick="go('info')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 8h0"/></svg>Store</button>
+  <button data-tab="manage" onclick="go('manage')"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M12 12v5M9.5 14.5h5"/></svg>Owner</button>
 </nav>
 
 <div class="sheet" id="sh"><div class="sc" onclick="closeSheet()"></div><div class="in" id="shin"></div></div>
@@ -309,6 +311,7 @@ function go(p){
   if(p==='shop')renderShop();
   if(p==='cart')renderCart();
   if(p==='info')renderInfo();
+  if(p==='manage')renderManage();
   if(p==='home')renderHome();
   window._page=p;
 }
@@ -502,7 +505,7 @@ function renderManage(){
    +'<div><b style="color:'+(out?'#ff6b6b':'var(--gold2)')+'">'+out+'</b><span>Out of stock</span></div>'
    +'</div>'
    +'<button class="btn wide" onclick="editProduct()">+ Add new product</button>'
-   +'<div class="mu" style="margin:12px 0 8px;font-size:12.5px">Tap + to increase stock and − to decrease. Tap − each time an item is sold.</div>'
+   +'<div class="mu" style="margin:12px 0 8px;font-size:12.5px">Add a frame with its photo, name and stock. Tap + to increase stock, − when a piece is sold.</div>'
    +'</div>';
   if(!products.length){
     h+='<div class="card" style="text-align:center;padding:22px"><b style="display:block;margin-bottom:6px">No products</b>'
