@@ -268,16 +268,7 @@ const DEFAULT_SHOP = {
   mapQuery:'Patel Chashma Ghar Chanakyapuri'
 };
 
-const DEFAULT_PRODUCTS = [
-  {id:'p1', name:'Aero Round Metal', cat:'frames', price:1499, mrp:2199, style:'round', color:'#d4af37', tag:'Best seller', desc:'Halka titanium frame, poore din aaram. Unisex.', stock:6},
-  {id:'p2', name:'Classic Square', cat:'frames', price:999, mrp:1499, style:'square', color:'#2b2b2b', tag:'', desc:'TR90 matte black frame — office aur daily use ke liye.', stock:6},
-  {id:'p3', name:'Aviator Gold', cat:'sunglasses', price:1899, mrp:2599, style:'aviator', color:'#d4af37', tag:'New', desc:'UV400 lens, gold metal frame. Classic aviator look.', stock:6},
-  {id:'p4', name:'Cat Eye Noir', cat:'sunglasses', price:1299, mrp:1799, style:'cateye', color:'#8b1e3f', tag:'', desc:'Stylish cat-eye shape, polarized lens.', stock:6},
-  {id:'p5', name:'Blue Cut Lens', cat:'lenses', price:799, mrp:1299, style:'lens', color:'#3aa0ff', tag:'', desc:'Screen se aane wali blue light block karta hai. Anti-glare.', stock:6},
-  {id:'p6', name:'Progressive Lens', cat:'lenses', price:2499, mrp:3499, style:'lens', color:'#9a7bff', tag:'Premium', desc:'Door aur paas dono — ek hi chashme mein.', stock:6},
-  {id:'p7', name:'Daily Contact Lens', cat:'contact', price:599, mrp:799, style:'contact', color:'#3ddc97', tag:'', desc:'Ek din ke disposable lens, 10 pieces. Comfortable.', stock:6},
-  {id:'p8', name:'Kids Frame Flex', cat:'frames', price:749, mrp:999, style:'square', color:'#1f6feb', tag:'', desc:'Bachchon ke liye flexible frame — mudta hai, tootta nahi.', stock:6}
-];
+const DEFAULT_PRODUCTS = [];
 
 let shop = Object.assign({}, DEFAULT_SHOP, read('pc_shop') || {});
 let products = read('pc_prod') || DEFAULT_PRODUCTS.slice();
@@ -346,7 +337,12 @@ function setCat(c){cat=c;renderHome();renderShop();}
 function renderHome(){
   $('cats').innerHTML=catHTML('a');
   const best=products.slice(0,4);
-  $('bestGrid').innerHTML=best.map((p,i)=>pcard(p,i)).join('');
+  if(!products.length){
+    $('bestGrid').innerHTML='<div class="empty" style="grid-column:1/-1"><b>Abhi koi product nahi hai</b>'
+      +'Neeche Manage tab se apne frames, sunglasses aur lenses add karo — naam, price, photo sab aap bharoge.</div>';
+  } else {
+    $('bestGrid').innerHTML=best.map((p,i)=>pcard(p,i)).join('');
+  }
   $('addrLine').textContent=shop.name;
   $('addrSub').textContent=shop.address||shop.timings;
   $('hName').textContent=shop.name;
@@ -373,8 +369,12 @@ function renderShop(){
   const q=(($('q')||{}).value||'').toLowerCase();
   let list=products.filter(p=>cat==='all'||p.cat===cat);
   if(q)list=list.filter(p=>(p.name+' '+p.desc).toLowerCase().includes(q));
-  $('shopGrid').innerHTML=list.length?list.map((p,i)=>pcard(p,i)).join('')
-    :'<div class="empty" style="grid-column:1/-1"><b>Kuch nahi mila</b>Doosra search ya category try karo.</div>';
+  if(!products.length){
+    $('shopGrid').innerHTML='<div class="empty" style="grid-column:1/-1"><b>Shop khaali hai</b>Pehle Manage tab se products add karo.</div>';
+  } else {
+    $('shopGrid').innerHTML=list.length?list.map((p,i)=>pcard(p,i)).join('')
+      :'<div class="empty" style="grid-column:1/-1"><b>Kuch nahi mila</b>Doosra search ya category try karo.</div>';
+  }
 }
 
 /* ---------- product page ---------- */
@@ -510,6 +510,10 @@ function renderManage(){
    +'<button class="btn wide" onclick="editProduct()">+ Naya product add karo</button>'
    +'<div class="mu" style="margin:12px 0 8px;font-size:12.5px">Stock badhane ke liye + , ghatane ke liye − dabao. Bikne par − dabate raho.</div>'
    +'</div>';
+  if(!products.length){
+    h+='<div class="card" style="text-align:center;padding:22px"><b style="display:block;margin-bottom:6px">Koi product nahi</b>'
+     +'<div class="mu">Upar wale button se pehla product add karo — naam, price, stock aur photo.</div></div>';
+  }
   products.forEach(p=>{
     const st=p.stock||0;
     h+='<div class="card" style="margin-bottom:10px">'
