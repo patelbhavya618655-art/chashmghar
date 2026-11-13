@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Install — Patel Chashma Ghar</title>
+<meta name="theme-color" content="#08080a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--bg:#08080a;--cd:#131318;--tx:#f4f1ea;--mu:#9a9384;--bd:#26262e;--gold:#d4af37;--gold2:#f0d47a}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{background:radial-gradient(circle at 50% 0%,#1a1710,#08080a 60%);color:var(--tx);
+ font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;text-align:center}
+.logo{width:88px;height:88px;margin-bottom:18px}
+h1{font-size:22px;margin-bottom:6px}
+p{color:var(--mu);font-size:14px;max-width:340px;margin-bottom:26px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:340px;
+ padding:16px;border-radius:16px;font-weight:800;font-size:16px;border:0;cursor:pointer;margin-bottom:12px}
+.p{background:linear-gradient(135deg,var(--gold),#b8942a);color:#0a0a0c}
+.s{background:transparent;border:1px solid var(--bd);color:var(--tx);font-weight:600}
+.note{margin-top:20px;font-size:12.5px;color:#6f6a5f;max-width:340px}
+.steps{margin-top:22px;text-align:left;background:var(--cd);border:1px solid var(--bd);border-radius:16px;
+ padding:16px;max-width:340px;width:100%;display:none}
+.steps.on{display:block}
+.steps b{color:var(--gold2);font-size:14px}
+.steps ol{margin:8px 0 0 18px;color:var(--mu);font-size:13.5px}
+.steps li{margin-bottom:6px}
+</style></head>
+<body>
+<svg class="logo" viewBox="0 0 60 60" fill="none" stroke="#d4af37" stroke-width="3.2" stroke-linecap="round">
+  <circle cx="21" cy="30" r="9"/><circle cx="39" cy="30" r="9"/>
+  <path d="M30 30h0M12 28l-4-3M48 28l4-3M16 20c3-2 7-2 10 0M34 20c3-2 7-2 10 0"/>
+</svg>
+<h1>Patel Chashma Ghar</h1>
+<p>App install karo — phir seedha icon se khulega, browser ki zaroorat nahi.</p>
+
+<button class="btn p" id="bi" onclick="doInstall()">⬇ Install app</button>
+<button class="btn s" onclick="location.href='https://github.com/patelbhavya618655-art/chashmghar/releases/download/latest/ChashmaGhar-install.apk'">APK download karo</button>
+
+<div class="steps" id="st">
+  <b>Install kaise karein</b>
+  <ol>
+    <li>Chrome ka ⋮ menu kholo (upar right).</li>
+    <li><b>Install app</b> ya <b>Add to Home screen</b> dabao.</li>
+    <li>Confirm karo — icon ban jayega.</li>
+  </ol>
+</div>
+
+<div class="note" id="nt">Agar Install button kaam na kare, to neeche wale APK button se file download karke install kar lo.</div>
+
+<script>
+let deferred=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;document.getElementById('nt').textContent='Install button taiyar hai — dabao aur icon ban jayega.'});
+window.addEventListener('appinstalled',()=>{document.getElementById('nt').textContent='Install ho gaya! Ab home screen se app kholo.';document.getElementById('bi').textContent='✓ Installed';});
+async function doInstall(){
+  if(deferred){ deferred.prompt(); try{await deferred.userChoice}catch(e){} deferred=null; return; }
+  const st=document.getElementById('st'); st.classList.add('on');
+  document.getElementById('nt').textContent='Browser ne direct install nahi diya — neeche ke 3 step follow karo.';
+}
+if(window.matchMedia('(display-mode: standalone)').matches){document.getElementById('bi').textContent='✓ App installed hai';}
+</script>
+</body></html>
