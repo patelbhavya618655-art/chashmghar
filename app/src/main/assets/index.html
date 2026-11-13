@@ -177,9 +177,6 @@ nav button.on svg{transform:translateY(-2px) scale(1.06)}
 <header>
   <div class="lg" id="lgWrap"></div>
   <div class="tt"><b id="hName">Patel Chashma Ghar</b><span id="hTag">Your vision, our responsibility</span></div>
-  <button class="ico" onclick="openSettings()" aria-label="Settings">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
-  </button>
   <button class="ico" onclick="go('cart')" aria-label="Cart">
     <svg viewBox="0 0 24 24"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6L5 3H2"/></svg>
     <span class="badge" id="cartBadge" style="display:none">0</span>
@@ -236,7 +233,6 @@ nav button.on svg{transform:translateY(-2px) scale(1.06)}
   <section class="page" id="p-cart"><div id="cartBody"></div></section>
 <!-- INFO -->
   <section class="page" id="p-info"><div id="infoBody"></div></section>
-  <section class="page" id="p-manage"><div id="manageBody"></div></section>
 
 </main>
 
@@ -245,7 +241,6 @@ nav button.on svg{transform:translateY(-2px) scale(1.06)}
   <button data-tab="shop" onclick="go('shop')"><svg viewBox="0 0 24 24"><circle cx="9" cy="13" r="5"/><circle cx="17" cy="13" r="4"/><path d="M14 13h0"/></svg>Shop</button>
   <button data-tab="cart" onclick="go('cart')"><svg viewBox="0 0 24 24"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>Cart</button>
   <button data-tab="info" onclick="go('info')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 8h0"/></svg>Store</button>
-  <button data-tab="manage" onclick="go('manage')"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg>Manage</button>
 </nav>
 
 <div class="sheet" id="sh"><div class="sc" onclick="closeSheet()"></div><div class="in" id="shin"></div></div>
@@ -314,7 +309,6 @@ function go(p){
   if(p==='shop')renderShop();
   if(p==='cart')renderCart();
   if(p==='info')renderInfo();
-  if(p==='manage')renderManage();
   if(p==='home')renderHome();
   window._page=p;
 }
@@ -339,7 +333,7 @@ function renderHome(){
   const best=products.slice(0,4);
   if(!products.length){
     $('bestGrid').innerHTML='<div class="empty" style="grid-column:1/-1"><b>No products yet</b>'
-      +'Open the Manage tab below to add your frames, sunglasses and lenses — name, price and photo are all yours to fill in.</div>';
+      +'Our new collection is being added. Please check back soon or message us on WhatsApp.</div>';
   } else {
     $('bestGrid').innerHTML=best.map((p,i)=>pcard(p,i)).join('');
   }
@@ -370,7 +364,7 @@ function renderShop(){
   let list=products.filter(p=>cat==='all'||p.cat===cat);
   if(q)list=list.filter(p=>(p.name+' '+p.desc).toLowerCase().includes(q));
   if(!products.length){
-    $('shopGrid').innerHTML='<div class="empty" style="grid-column:1/-1"><b>The shop is empty</b>Add products from the Manage tab first.</div>';
+    $('shopGrid').innerHTML='<div class="empty" style="grid-column:1/-1"><b>The shop is empty</b>Please check back soon — new stock is on the way.</div>';
   } else {
     $('shopGrid').innerHTML=list.length?list.map((p,i)=>pcard(p,i)).join('')
       :'<div class="empty" style="grid-column:1/-1"><b>Nothing found</b>Try another search or category.</div>';
