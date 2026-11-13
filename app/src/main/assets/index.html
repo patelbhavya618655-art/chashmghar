@@ -176,7 +176,7 @@ nav button.on svg{transform:translateY(-2px) scale(1.06)}
 
 <header>
   <div class="lg" id="lgWrap"></div>
-  <div class="tt"><b id="hName">Patel Chashma Ghar</b><span id="hTag">Aapki nazar, hamari zimmedari</span></div>
+  <div class="tt"><b id="hName">Patel Chashma Ghar</b><span id="hTag">Your vision, our responsibility</span></div>
   <button class="ico" onclick="openSettings()" aria-label="Settings">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
   </button>
@@ -192,26 +192,26 @@ nav button.on svg{transform:translateY(-2px) scale(1.06)}
   <section class="page on" id="p-home">
     <div class="hero">
       <span class="k">New Collection 2026</span>
-      <h2 id="heroTitle">Naye frames,<br>naya nazariya</h2>
-      <p id="heroSub">Premium frames, branded lenses aur expert fitting — sab ek jagah.</p>
+      <h2 id="heroTitle">New frames,<br>a clearer view</h2>
+      <p id="heroSub">Premium frames, branded lenses and expert fitting — all in one place.</p>
       <div class="acts">
-        <button class="btn" onclick="go('shop')">Shop karo</button>
-        <button class="btn gh" onclick="waShop()">WhatsApp karo</button>
+        <button class="btn" onclick="go('shop')">Shop now</button>
+        <button class="btn gh" onclick="waShop()">WhatsApp us</button>
       </div>
     </div>
 
     <div class="cats" id="cats"></div>
 
-    <div class="sec"><b>Best sellers</b><span class="more" onclick="go('shop')">Sab dekho ›</span></div>
+    <div class="sec"><b>Best sellers</b><span class="more" onclick="go('shop')">View all ›</span></div>
     <div class="grid" id="bestGrid"></div>
 
-    <div class="sec"><b>Hum kyun?</b></div>
-    <div class="card"><div class="row"><span class="pill">✓</span><div><b style="font-size:14px">1 saal warranty</b><div class="mu">Frame aur lens dono par</div></div></div></div>
-    <div class="card"><div class="row"><span class="pill">✓</span><div><b style="font-size:14px">Same-day fitting</b><div class="mu">Power lens 30 minute mein ready</div></div></div></div>
+    <div class="sec"><b>Why us?</b></div>
+    <div class="card"><div class="row"><span class="pill">✓</span><div><b style="font-size:14px">1 year warranty</b><div class="mu">On frames and lenses</div></div></div></div>
+    <div class="card"><div class="row"><span class="pill">✓</span><div><b style="font-size:14px">Same-day fitting</b><div class="mu">Power lenses ready in 30 minutes</div></div></div></div>
 
     <div class="sec"><b>Store</b></div>
     <div class="card">
-      <div class="row s"><div><b id="addrLine" style="font-size:14px">Patel ChashmGhar</b><div class="mu" id="addrSub">Address settings mein daalo</div></div></div>
+      <div class="row s"><div><b id="addrLine" style="font-size:14px">Patel ChashmGhar</b><div class="mu" id="addrSub">Add your address in Settings</div></div></div>
       <div class="row" style="gap:8px;margin-top:12px">
         <button class="btn gh sm" onclick="callShop()">Call</button>
         <button class="btn gh sm" onclick="waShop()">WhatsApp</button>
@@ -253,14 +253,14 @@ nav button.on svg{transform:translateY(-2px) scale(1.06)}
 
 <script>
 /* =========================================================
-   Patel ChashmGhar — store app
-   Sab kuch phone mein save hota hai (localStorage).
-   Shop details aur products "Settings" (gear icon) se badal sakte ho.
+   Patel Chashma Ghar — store app
+   Everything is saved on this device (localStorage).
+   Store details and products can be changed from Settings (gear icon) or the Manage tab.
    ========================================================= */
 
 const DEFAULT_SHOP = {
   name:'Patel Chashma Ghar',
-  tagline:'Aapki nazar, hamari zimmedari',
+  tagline:'Your vision, our responsibility',
   phone:'7383808222',
   whatsapp:'917383808222',
   address:'Chanakyapuri',
@@ -338,8 +338,8 @@ function renderHome(){
   $('cats').innerHTML=catHTML('a');
   const best=products.slice(0,4);
   if(!products.length){
-    $('bestGrid').innerHTML='<div class="empty" style="grid-column:1/-1"><b>Abhi koi product nahi hai</b>'
-      +'Neeche Manage tab se apne frames, sunglasses aur lenses add karo — naam, price, photo sab aap bharoge.</div>';
+    $('bestGrid').innerHTML='<div class="empty" style="grid-column:1/-1"><b>No products yet</b>'
+      +'Open the Manage tab below to add your frames, sunglasses and lenses — name, price and photo are all yours to fill in.</div>';
   } else {
     $('bestGrid').innerHTML=best.map((p,i)=>pcard(p,i)).join('');
   }
@@ -370,10 +370,10 @@ function renderShop(){
   let list=products.filter(p=>cat==='all'||p.cat===cat);
   if(q)list=list.filter(p=>(p.name+' '+p.desc).toLowerCase().includes(q));
   if(!products.length){
-    $('shopGrid').innerHTML='<div class="empty" style="grid-column:1/-1"><b>Shop khaali hai</b>Pehle Manage tab se products add karo.</div>';
+    $('shopGrid').innerHTML='<div class="empty" style="grid-column:1/-1"><b>The shop is empty</b>Add products from the Manage tab first.</div>';
   } else {
     $('shopGrid').innerHTML=list.length?list.map((p,i)=>pcard(p,i)).join('')
-      :'<div class="empty" style="grid-column:1/-1"><b>Kuch nahi mila</b>Doosra search ya category try karo.</div>';
+      :'<div class="empty" style="grid-column:1/-1"><b>Nothing found</b>Try another search or category.</div>';
   }
 }
 
@@ -388,14 +388,14 @@ function openProd(id){
    +'<div class="row s"><div><h2 style="font-size:19px">'+esc(p.name)+'</h2><div class="mu">'+catName(p.cat)+'</div></div>'
    +'<button class="ico" onclick="toggleFav(\''+p.id+'\');openProd(\''+p.id+'\')"><svg viewBox="0 0 24 24" style="fill:'+(fav?'#ff6b6b':'none')+';stroke:'+(fav?'#ff6b6b':'currentColor')+'"><path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9z"/></svg></button></div>'
    +'<div class="price" style="margin-top:10px">'+money(p.price)+(p.mrp?'<span class="strike">'+money(p.mrp)+'</span>':'')+'</div>'
-   +'<div class="specs"><span class="badge2">1 saal warranty</span><span class="badge2">Free fitting</span><span class="badge2">Original product</span>'
+   +'<div class="specs"><span class="badge2">1 year warranty</span><span class="badge2">Free fitting</span><span class="badge2">Original product</span>'
    +'<span class="badge2" style="color:'+((p.stock||0)>0?'var(--ok)':'#ff6b6b')+'">'+((p.stock||0)>0?(p.stock+' in stock'):'Out of stock')+'</span></div>'
    +'<p class="mu" style="margin:6px 0 18px">'+esc(p.desc)+'</p>'
    +((p.stock||0)>0
-      ?'<button class="btn wide" onclick="addCart(\''+p.id+'\')">Cart mein daalo</button>'
-      :'<button class="btn wide" style="background:#2a1a1a;color:#ff9a9e" onclick="notifyMe(\''+p.id+'\')">Out of stock — poochho</button>')
-   +'<button class="btn gh wide" style="margin-top:10px" onclick="waProduct(\''+p.id+'\')">WhatsApp par poochho</button>'
-   +'<button class="btn gh wide" style="margin-top:10px" onclick="go(\'shop\')">← Aur products dekho</button>'
+      ?'<button class="btn wide" onclick="addCart(\''+p.id+'\')">Add to cart</button>'
+      :'<button class="btn wide" style="background:#2a1a1a;color:#ff9a9e" onclick="notifyMe(\''+p.id+'\')">Out of stock — ask us</button>')
+   +'<button class="btn gh wide" style="margin-top:10px" onclick="waProduct(\''+p.id+'\')">Ask on WhatsApp</button>'
+   +'<button class="btn gh wide" style="margin-top:10px" onclick="go(\'shop\')">← View more products</button>'
    +'</div>';
   go('prod');
 }
@@ -405,13 +405,13 @@ function addCart(id){
   const p=products.find(x=>x.id===id);
   if(!p)return;
   const have=p.stock||0, inCart=cart[id]||0;
-  if(have<=0)return toast('Yeh product out of stock hai');
-  if(inCart>=have)return toast('Sirf '+have+' piece stock mein hai');
-  cart[id]=inCart+1; write('pc_cart',cart); updateBadge(); toast('Cart mein add ho gaya');
+  if(have<=0)return toast('This product is out of stock');
+  if(inCart>=have)return toast('Sirf '+have+' pieces left in stock');
+  cart[id]=inCart+1; write('pc_cart',cart); updateBadge(); toast('Added to cart');
 }
 function notifyMe(id){
   const p=products.find(x=>x.id===id); if(!p)return;
-  openWA('Namaste '+shop.name+' 🙏%0AMujhe yeh product chahiye tha par out of stock dikh raha hai:%0A• '+encodeURIComponent(p.name)+'%0AAvailable hone par bata dijiye.');
+  openWA('Hello '+shop.name+'%0A%0AI wanted this product but it shows out of stock:%0A• '+encodeURIComponent(p.name)+'%0APlease let me know when it is available.');
 }
 function updateBadge(){
   const n=Object.values(cart).reduce((a,b)=>a+b,0);
@@ -421,8 +421,8 @@ function updateBadge(){
 function renderCart(){
   const ids=Object.keys(cart);
   if(!ids.length){
-    $('cartBody').innerHTML='<div class="empty"><b>Cart khaali hai</b>Shop se apna pasandida frame chuno.</div>'
-      +'<div class="wrap"><button class="btn wide" onclick="go(\'shop\')">Shop dekho</button></div>';
+    $('cartBody').innerHTML='<div class="empty"><b>Your cart is empty</b>Pick your favourite frame from the shop.</div>'
+      +'<div class="wrap"><button class="btn wide" onclick="go(\'shop\')">Browse the shop</button></div>';
     return;
   }
   let total=0;
@@ -435,8 +435,8 @@ function renderCart(){
       +'<div class="qty"><button onclick="qty(\''+id+'\',-1)">−</button><span>'+q+'</span><button onclick="qty(\''+id+'\',1)">+</button></div></div>';
   });
   h+='<div class="card" style="margin-top:14px"><div class="row s"><span class="mu">Total</span><b style="font-size:19px;color:var(--gold2)">'+money(total)+'</b></div></div>'
-   +'<div class="wrap"><button class="btn wide" onclick="waOrder()">WhatsApp par order karo</button>'
-   +'<button class="btn gh wide" style="margin-top:10px" onclick="clearCart()">Cart khaali karo</button></div>';
+   +'<div class="wrap"><button class="btn wide" onclick="waOrder()">Order on WhatsApp</button>'
+   +'<button class="btn gh wide" style="margin-top:10px" onclick="clearCart()">Clear cart</button></div>';
   $('cartBody').innerHTML=h;
 }
 function qty(id,d){
@@ -444,28 +444,28 @@ function qty(id,d){
   if(cart[id]<=0)delete cart[id];
   write('pc_cart',cart); updateBadge(); renderCart();
 }
-function clearCart(){cart={};write('pc_cart',cart);updateBadge();renderCart();toast('Cart khaali ho gaya')}
+function clearCart(){cart={};write('pc_cart',cart);updateBadge();renderCart();toast('Cart cleared')}
 function waOrder(){
   const ids=Object.keys(cart); if(!ids.length)return;
   let total=0,lines=[];
   ids.forEach(id=>{const p=products.find(x=>x.id===id);if(!p)return;const q=cart[id];total+=p.price*q;lines.push('• '+p.name+' x'+q+' — '+money(p.price*q))});
-  const msg='Namaste '+shop.name+' 🙏%0A%0AMujhe yeh order karna hai:%0A'+encodeURIComponent(lines.join('\n')).replace(/%250A/g,'%0A')
-    +'%0A%0ATotal: '+encodeURIComponent(money(total))+'%0A%0AKya yeh available hai?';
+  const msg='Hello '+shop.name+'%0A%0AI would like to order:%0A'+encodeURIComponent(lines.join('\n')).replace(/%250A/g,'%0A')
+    +'%0A%0ATotal: '+encodeURIComponent(money(total))+'%0A%0AIs this available?';
   openWA(msg);
 }
 function waProduct(id){
   const p=products.find(x=>x.id===id); if(!p)return;
-  openWA('Namaste '+shop.name+' 🙏%0AMujhe yeh product chahiye:%0A• '+encodeURIComponent(p.name)+' — '+encodeURIComponent(money(p.price)));
+  openWA('Hello '+shop.name+'%0A%0AI would like this product:%0A• '+encodeURIComponent(p.name)+' — '+encodeURIComponent(money(p.price)));
 }
-function waShop(){openWA('Namaste '+shop.name+' 🙏')}
+function waShop(){openWA('Hello '+shop.name+'')}
 function openWA(msg){
   const num=(shop.whatsapp||shop.phone||'').replace(/[^0-9]/g,'');
-  if(!num)return toast('Settings mein WhatsApp number daalo');
+  if(!num)return toast('Add a WhatsApp number in Settings');
   window.open('https://wa.me/'+num+'?text='+msg,'_blank');
 }
 function callShop(){
   const num=(shop.phone||'').replace(/[^0-9+]/g,'');
-  if(!num)return toast('Settings mein phone number daalo');
+  if(!num)return toast('Add a phone number in Settings');
   location.href='tel:'+num;
 }
 function mapShop(){
@@ -479,21 +479,21 @@ function renderInfo(){
    '<div class="wrap" style="margin-top:8px">'
    +'<div class="card" style="margin:0 0 12px"><h3 style="font-size:17px">'+esc(shop.name)+'</h3>'
    +'<div class="mu" style="margin-top:4px">'+esc(shop.tagline||'')+'</div>'
-   +'<div style="margin-top:14px" class="mu">📍 '+esc(shop.address||'Address settings mein daalo')+'</div>'
+   +'<div style="margin-top:14px" class="mu">📍 '+esc(shop.address||'Add your address in Settings')+'</div>'
    +'<div class="mu" style="margin-top:6px">🕒 '+esc(shop.timings||'')+'</div>'
-   +'<div class="mu" style="margin-top:6px">📞 '+esc(shop.phone||'Phone settings mein daalo')+'</div>'
+   +'<div class="mu" style="margin-top:6px">📞 '+esc(shop.phone||'Add a phone number in Settings')+'</div>'
    +'<div class="row" style="gap:8px;margin-top:14px;flex-wrap:wrap">'
    +'<button class="btn sm" onclick="callShop()">Call</button>'
    +'<button class="btn gh sm" onclick="waShop()">WhatsApp</button>'
    +'<button class="btn gh sm" onclick="mapShop()">Map</button></div></div>'
    +'<div class="card" style="margin:0 0 12px"><b style="font-size:14px">Services</b>'
 
-   +'<div class="mu">• Power glasses — 30 min fitting</div>'
-   +'<div class="mu">• Sunglasses aur branded frames</div>'
+   +'<div class="mu">• Power glasses — 30 minute fitting</div>'
+   +'<div class="mu">• Sunglasses and branded frames</div>'
    +'<div class="mu">• Contact lenses</div>'
-   +'<div class="mu">• Frame repair aur lens change</div></div>'
+   +'<div class="mu">• Frame repair and lens change</div></div>'
    +'<div class="card" style="margin:0"><b style="font-size:14px">Wishlist</b>'
-   +(favs.length?'<div class="mu" style="margin-top:6px">'+favs.length+' product save kiye hain</div>':'<div class="mu" style="margin-top:6px">Koi product save nahi kiya</div>')
+   +(favs.length?'<div class="mu" style="margin-top:6px">'+favs.length+' products saved</div>':'<div class="mu" style="margin-top:6px">No products saved yet</div>')
    +'</div></div>';
 }
 
@@ -507,12 +507,12 @@ function renderManage(){
    +'<div><b>'+totalStock+'</b><span>Total stock</span></div>'
    +'<div><b style="color:'+(out?'#ff6b6b':'var(--gold2)')+'">'+out+'</b><span>Out of stock</span></div>'
    +'</div>'
-   +'<button class="btn wide" onclick="editProduct()">+ Naya product add karo</button>'
-   +'<div class="mu" style="margin:12px 0 8px;font-size:12.5px">Stock badhane ke liye + , ghatane ke liye − dabao. Bikne par − dabate raho.</div>'
+   +'<button class="btn wide" onclick="editProduct()">+ Add new product</button>'
+   +'<div class="mu" style="margin:12px 0 8px;font-size:12.5px">Tap + to increase stock and − to decrease. Tap − each time an item is sold.</div>'
    +'</div>';
   if(!products.length){
-    h+='<div class="card" style="text-align:center;padding:22px"><b style="display:block;margin-bottom:6px">Koi product nahi</b>'
-     +'<div class="mu">Upar wale button se pehla product add karo — naam, price, stock aur photo.</div></div>';
+    h+='<div class="card" style="text-align:center;padding:22px"><b style="display:block;margin-bottom:6px">No products</b>'
+     +'<div class="mu">Use the button above to add your first product — name, price, stock and photo.</div></div>';
   }
   products.forEach(p=>{
     const st=p.stock||0;
@@ -533,8 +533,8 @@ function renderManage(){
 }
 function askDelete(id){
   const p=products.find(x=>x.id===id); if(!p)return;
-  openSheet('<div class="grab"></div><h3>Product delete karein?</h3><div class="mu" style="margin-bottom:14px">'+esc(p.name)+' hamesha ke liye hat jayega.</div>'
-   +'<button class="btn wide" style="background:#7a2b2f" onclick="delProduct(\''+id+'\');closeSheet()">Haan, delete karo</button>'
+  openSheet('<div class="grab"></div><h3>Delete this product?</h3><div class="mu" style="margin-bottom:14px">'+esc(p.name)+' will be removed permanently.</div>'
+   +'<button class="btn wide" style="background:#7a2b2f" onclick="delProduct(\''+id+'\');closeSheet()">Yes, delete it</button>'
    +'<button class="btn gh wide" style="margin-top:8px" onclick="closeSheet()">Cancel</button>');
 }
 
@@ -544,7 +544,7 @@ function toggleFav(id){
   if(i>=0)favs.splice(i,1); else favs.push(id);
   write('pc_fav',favs);
   if(window._page==='home')renderHome(); if(window._page==='shop')renderShop();
-  toast(i>=0?'Wishlist se hata diya':'Wishlist mein save kiya');
+  toast(i>=0?'Removed from wishlist':'Saved to wishlist');
 }
 
 /* ---------- settings (owner) ---------- */
@@ -552,12 +552,12 @@ function openSettings(){
   openSheet('<div class="grab"></div><h3>Store settings</h3>'
    +'<label>Store name</label><input id="stName" value="'+esc(shop.name)+'">'
    +'<label>Tagline</label><input id="stTag" value="'+esc(shop.tagline||'')+'">'
-   +'<label>Phone (call ke liye)</label><input id="stPhone" value="'+esc(shop.phone||'')+'" placeholder="+91 98765 43210">'
-   +'<label>WhatsApp number (country code ke saath)</label><input id="stWa" value="'+esc(shop.whatsapp||'')+'" placeholder="919876543210">'
+   +'<label>Phone (for calls)</label><input id="stPhone" value="'+esc(shop.phone||'')+'" placeholder="+91 98765 43210">'
+   +'<label>WhatsApp number (with country code)</label><input id="stWa" value="'+esc(shop.whatsapp||'')+'" placeholder="919876543210">'
    +'<label>Address</label><textarea id="stAddr" rows="2">'+esc(shop.address||'')+'</textarea>'
    +'<label>Timings</label><input id="stTime" value="'+esc(shop.timings||'')+'">'
    +'<button class="btn wide" style="margin-top:16px" onclick="saveSettings()">Save</button>'
-   +'<button class="btn gh wide" style="margin-top:10px" onclick="openProductAdmin()">Products manage karo ('+products.length+')</button>'
+   +'<button class="btn gh wide" style="margin-top:10px" onclick="openProductAdmin()">Manage products ('+products.length+')</button>'
    +'<button class="btn gh wide" style="margin-top:10px" onclick="closeSheet()">Close</button>');
 }
 function saveSettings(){
@@ -567,7 +567,7 @@ function saveSettings(){
   shop.whatsapp=($('stWa').value||'').trim();
   shop.address=($('stAddr').value||'').trim();
   shop.timings=($('stTime').value||'').trim();
-  write('pc_shop',shop); closeSheet(); renderHome(); toast('Settings save ho gayi');
+  write('pc_shop',shop); closeSheet(); renderHome(); toast('Settings saved');
 }
 function openProductAdmin(){
   let h='<div class="grab"></div><h3>Products</h3>';
@@ -580,27 +580,27 @@ function openProductAdmin(){
       +'<button class="del" style="color:#d4af37;font-size:13px" onclick="editProduct(\''+p.id+'\')">Edit</button>'
       +'<button class="del" style="color:#ff6b6b;font-size:13px" onclick="delProduct(\''+p.id+'\')">Delete</button></div></div>';
   });
-  h+='<button class="btn wide" style="margin-top:8px" onclick="editProduct()">+ Naya product add karo</button>'
+  h+='<button class="btn wide" style="margin-top:8px" onclick="editProduct()">+ Add new product</button>'
    +'<button class="btn gh wide" style="margin-top:10px" onclick="openSettings()">← Back</button>';
   openSheet(h);
 }
 function editProduct(id){
   const p=id?products.find(x=>x.id===id):{name:'',cat:'frames',price:'',mrp:'',style:'round',color:'#d4af37',tag:'',desc:''};
   const styles=['round','square','aviator','cateye','lens','contact'];
-  openSheet('<div class="grab"></div><h3>'+(id?'Product edit':'Naya product')+'</h3>'
-   +'<label>Naam</label><input id="pn" value="'+esc(p.name)+'">'
+  openSheet('<div class="grab"></div><h3>'+(id?'Edit product':'New product')+'</h3>'
+   +'<label>Name</label><input id="pn" value="'+esc(p.name)+'">'
    +'<label>Category</label><select id="pc"><option value="frames">Frame</option><option value="sunglasses">Sunglasses</option><option value="lenses">Lens</option><option value="contact">Contact lens</option></select>'
    +'<label>Price (₹)</label><input id="pp" inputmode="numeric" value="'+esc(String(p.price||''))+'">'
    +'<label>MRP (optional)</label><input id="pm" inputmode="numeric" value="'+esc(String(p.mrp||''))+'">'
    +'<label>Design</label><select id="ps">'+styles.map(s=>'<option value="'+s+'"'+(p.style===s?' selected':'')+'>'+s+'</option>').join('')+'</select>'
    +'<label>Colour</label><input id="pcol" type="color" value="'+(p.color||'#d4af37')+'" style="height:46px;padding:4px">'
    +'<label>Tag (Best seller / New)</label><input id="pt" value="'+esc(p.tag||'')+'">'
-   +'<label>Photo (phone se chuno — optional)</label>'
+   +'<label>Photo (choose from your phone — optional)</label>'
    +'<div class="row" style="gap:10px"><div id="pimgPrev" style="width:64px;height:64px;border-radius:12px;background:#101014;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;overflow:hidden">'
    +(p.img?'<img src="'+p.img+'" style="width:100%;height:100%;object-fit:cover">':'<span class="mu" style="font-size:11px">No photo</span>')+'</div>'
-   +'<label class="btn gh sm" style="margin:0">Photo chuno<input type="file" accept="image/*" style="display:none" onchange="pickImg(this)"></label>'
-   +'<button class="btn gh sm" onclick="clearImg()">Hatao</button></div>'
-   +'<label>Stock (kitne piece hain)</label><input id="pst" inputmode="numeric" value="'+(p.stock!=null?p.stock:6)+'">'
+   +'<label class="btn gh sm" style="margin:0">Choose photo<input type="file" accept="image/*" style="display:none" onchange="pickImg(this)"></label>'
+   +'<button class="btn gh sm" onclick="clearImg()">Remove</button></div>'
+   +'<label>Stock (pieces available)</label><input id="pst" inputmode="numeric" value="'+(p.stock!=null?p.stock:6)+'">'
    +'<label>Description</label><textarea id="pd" rows="2">'+esc(p.desc||'')+'</textarea>'
    +'<button class="btn wide" style="margin-top:16px" onclick="saveProduct('+(id?("'"+id+"'"):'null')+')">Save</button>'
    +'<button class="btn gh wide" style="margin-top:10px" onclick="openProductAdmin()">Cancel</button>');
@@ -619,7 +619,7 @@ function pickImg(inp){
       cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);
       tmpImg=cv.toDataURL('image/jpeg',0.82);
       const pr=$('pimgPrev'); if(pr)pr.innerHTML='<img src="'+tmpImg+'" style="width:100%;height:100%;object-fit:cover">';
-      toast('Photo lag gayi — Save dabao');
+      toast('Photo added — tap Save');
     };
     im.src=r.result;
   };
@@ -632,14 +632,14 @@ function saveProduct(id){
     tag:($('pt').value||'').trim(),desc:($('pd').value||'').trim(),
     stock:parseInt($('pst').value||'0')||0};
   if(tmpImg!==null)o.img=tmpImg;
-  if(!o.name)return toast('Product ka naam likho');
-  if(!o.price)return toast('Price daalo');
+  if(!o.name)return toast('Enter the product name');
+  if(!o.price)return toast('Enter a price');
   tmpImg=null;
   if(id){const i=products.findIndex(x=>x.id===id);products[i]=Object.assign(products[i],o)}
   else{o.id='p'+Date.now();products.push(o)}
   write('pc_prod',products); closeSheet(); renderHome();
   if(window._page==='manage')renderManage();
-  toast('Product save ho gaya');
+  toast('Product saved');
 }
 function stockAdj(id,d){
   const p=products.find(x=>x.id===id); if(!p)return;
@@ -652,7 +652,7 @@ function stockAdj(id,d){
 function delProduct(id){
   products=products.filter(x=>x.id!==id); write('pc_prod',products);
   if(window._page==='manage')renderManage();
-  renderHome(); toast('Product delete ho gaya');
+  renderHome(); toast('Product deleted');
 }
 
 /* ---------- sheet ---------- */
